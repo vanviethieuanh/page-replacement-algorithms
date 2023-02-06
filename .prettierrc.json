@@ -1,0 +1,10 @@
+{
+    "semi": false,
+    "tabWidth": 4,
+    "singleAttributePerLine": true,
+    "singleQuote": false,
+    "endOfLine": "lf",
+    "plugins": [
+        "prettier-plugin-svelte"
+    ]
+}
