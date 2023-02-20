@@ -246,8 +246,12 @@
             margin-left: auto;
             margin-right: auto;
             &.fault {
-                background-color: rgba($color: #fff, $alpha: $opacity);
-                text-shadow: 0 0 10px rgba($color: $mainColor, $alpha: $opacity);
+                background-color: rgba(
+                    $color: #fff,
+                    $alpha: calc($opacity * 0.5)
+                );
+                text-shadow: 0 0 10px
+                    rgba($color: $mainColor, $alpha: calc($opacity * 0.5));
             }
 
             &.not-fault {
