@@ -5,7 +5,7 @@
 
     import type { ReplacementAlgorithm } from "@logic/ReplacementAlgorithm"
 
-    const backgroundId = "1470115636492-6d2b56f9146d"
+    const backgroundId = "1451187580459-43490279c0fa"
 
     let pagesInput: string = "1 3 5 2 0 2 6 2 3 0 4 0 2"
     $: pages = pagesInput
@@ -101,6 +101,18 @@
             </tbody>
         </table>
     </main>
+    <footer>
+        <div class="credit">
+            Design and created by Văn Viết Hiếu Anh - Background image from
+            <a
+                href="https://unsplash.com/"
+                target="_blank"
+                rel="noreferrer"
+            >
+                <i class="fa-brands fa-unsplash" /> Unsplash
+            </a>
+        </div>
+    </footer>
 </div>
 
 <style lang="scss">
@@ -151,7 +163,7 @@
             grid-template-columns: auto 1fr 150px;
             grid-template-rows: auto auto;
 
-            padding: 1rem;
+            gap: 1rem;
 
             p {
                 opacity: 0.5;
@@ -165,18 +177,38 @@
 
                 gap: 0.5rem;
             }
+        }
 
-            input {
-                margin: 0 0.5rem;
+        .algorithms-selector,
+        .inputs {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        table,
+        .inputs {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+    }
+
+    footer {
+        // Pin to bottom of screen
+        position: absolute;
+        bottom: 1rem;
+
+        .credit {
+            color: rgba($color: #fff, $alpha: 0.5);
+            font-size: 0.8rem;
+            user-select: none;
+
+            a {
+                margin-left: 0.5rem;
+                color: rgba($color: #fff, $alpha: 0.5);
+                &:hover {
+                    color: rgba($color: #fff, $alpha: 1);
+                }
             }
-        }
-
-        .algorithms-selector {
-            padding: 0 2rem;
-        }
-
-        table {
-            padding: 2rem 0;
         }
     }
 
@@ -193,18 +225,18 @@
             padding-bottom: 2rem;
 
             &.fault {
-                color: rgba(255, 255, 255, 0.635);
+                color: rgba(255, 255, 255, 1);
             }
 
             &.not-fault {
-                color: rgba($color: $mainColor, $alpha: $opacity);
+                color: $mainColor;
                 text-shadow: 0 0 10px
                     rgba($color: $mainColor, $alpha: calc($opacity * 0.5));
             }
         }
 
         .divider {
-            $opacity: 0.3;
+            $opacity: 0.5;
 
             width: 80%;
 

@@ -78,16 +78,16 @@
         &.selected {
             color: #222;
 
-            background-color: rgba($color: #fff, $alpha: 0.8);
+            background-color: rgba($color: #fff, $alpha: 1);
             border: rgba($color: #fff, $alpha: 0.5) 1px solid;
 
             &:hover {
-                background-color: rgba($color: #fff, $alpha: 0.8);
+                background-color: rgba($color: #fff, $alpha: 1);
                 border: rgba($color: #fff, $alpha: 0.5) 1px solid;
             }
         }
         &:hover {
-            background-color: rgba($color: #fff, $alpha: 0.2);
+            background-color: rgba($color: #fff, $alpha: 0);
             border: rgba($color: #fff, $alpha: 0.5) 1px solid;
         }
     }
