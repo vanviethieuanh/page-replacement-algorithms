@@ -35,12 +35,8 @@
         <div class="inputs">
             <p>Frames each page</p>
             <p>Pages</p>
-            <div class="fault-column">
-                <p>Faults</p>
-                <button on:click={() => copy(faultCount.toString())}>
-                    <i class="fa-solid fa-copy" />
-                </button>
-            </div>
+            <p>Faults</p>
+
             <input
                 type="number"
                 placeholder="Type in frames in each page"
@@ -53,7 +49,12 @@
                 id="pages"
                 bind:value={pagesInput}
             />
-            <b>{faultCount}</b>
+            <div class="fault-column">
+                <button on:click={() => copy(faultCount.toString())}>
+                    {faultCount}
+                    <i class="fa-solid fa-copy" />
+                </button>
+            </div>
         </div>
         <div class="divider" />
         <div class="algorithms-selector">
@@ -103,7 +104,8 @@
     </main>
     <footer>
         <div class="credit">
-            Design and created by Văn Viết Hiếu Anh - Background image from
+            Design and created by Văn Viết Hiếu Anh (Accodius) - Background
+            image from
             <a
                 href="https://unsplash.com/"
                 target="_blank"
@@ -163,7 +165,8 @@
             grid-template-columns: auto 1fr 150px;
             grid-template-rows: auto auto;
 
-            gap: 1rem;
+            column-gap: 1rem;
+            row-gap: 0rem;
 
             p {
                 opacity: 0.5;
@@ -278,25 +281,22 @@
         margin: 0;
         padding: 0;
 
-        $button-size: 32px;
-
         color: rgba($color: white, $alpha: 0.5);
-        border: rgba($color: #fff, $alpha: 0.1) 1px solid;
         background-color: rgba($color: #fff, $alpha: 0.1);
 
+        border: rgba($color: #fff, $alpha: 0.1) 1px solid;
         border-radius: 2px;
 
-        width: $button-size;
-        height: $button-size;
-
-        & i {
-            font-size: 1rem;
-        }
+        width: 100%;
+        height: 100%;
 
         // align icon to center
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 0.5rem;
+
+        font-size: 1rem;
 
         cursor: pointer;
 
