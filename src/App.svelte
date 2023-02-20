@@ -1,6 +1,11 @@
 <script lang="ts">
     import { FirstInFirstOut } from "@/logic/FirstInFirstOut"
+    import Algorithms from "./lib/Algorithms.svelte"
+    import { IntegersToRomanNumerals } from "@utils/NumberConverter"
+
     import type { ReplacementAlgorithm } from "@logic/ReplacementAlgorithm"
+
+    const backgroundId = "1470115636492-6d2b56f9146d"
 
     let pagesInput: string = "1 3 5 2 0 2 6 2 3 0 4 0 2"
     $: pages = pagesInput
@@ -24,7 +29,7 @@
 
 <div
     id="background"
-    style="background-image: url(https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80&w={window.innerWidth}&h={window.innerHeight});"
+    style="background-image: url(https://images.unsplash.com/photo-{backgroundId}?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80&w={window.innerWidth}&h={window.innerHeight});"
 >
     <main>
         <div class="inputs">
@@ -51,24 +56,39 @@
             <b>{faultCount}</b>
         </div>
         <div class="divider" />
+        <div class="algorithms-selector">
+            <Algorithms />
+        </div>
+        <div class="divider" />
         <!-- Table of result -->
         <!-- Each column is an element of result -->
         <table>
             <thead>
                 <tr>
+                    {#each result as page, index}
+                        <th
+                            class="header serif {!page.isFalut
+                                ? 'not-fault'
+                                : 'fault'}"
+                        >
+                            {IntegersToRomanNumerals(index + 1)}
+                        </th>
+                    {/each}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
                     {#each result as page}
-                        <th class="header">
+                        <td>
                             {page.value}
                             <div
                                 class="divider {!page.isFalut
                                     ? 'not-fault'
                                     : 'fault'}"
                             />
-                        </th>
+                        </td>
                     {/each}
                 </tr>
-            </thead>
-            <tbody>
                 {#each Array(frames) as _, index}
                     <tr>
                         {#each result as page}
@@ -99,18 +119,17 @@
     }
 
     main {
-        min-width: 80%;
+        user-select: none;
+
+        max-width: 80%;
         min-height: 300px;
 
         // blur background
-        background-color: rgba($color: #000, $alpha: 0.05);
+        background-color: rgba($color: #000, $alpha: 0.5);
         backdrop-filter: blur(30px);
 
         border-radius: 10px;
-        border: rgba($color: #fff, $alpha: 0.1) 1px solid;
-
-        // drop shadow
-        box-shadow: 0 0 10px rgba($color: #fff, $alpha: 0.2);
+        border: rgba($color: #fff, $alpha: 0.2) 1px solid;
 
         // stretch items to fill container
         display: flex;
@@ -152,34 +171,53 @@
             }
         }
 
+        .algorithms-selector {
+            padding: 0 2rem;
+        }
+
         table {
             padding: 2rem 0;
         }
     }
 
     table {
-        thead {
-            th {
-                padding: 0 1rem;
-                text-align: center;
+        table-layout: fixed;
+        width: 100%;
+        user-select: none;
 
-                $opacity: 0.5;
+        $mainColor: #ffe0b3;
 
-                .divider {
-                    &.fault {
-                        background-color: rgba($color: #fff, $alpha: $opacity);
-                    }
+        th {
+            $opacity: 0.7;
 
-                    &.not-fault {
-                        background-color: rgba(
-                            $color: #51ff25,
-                            $alpha: $opacity
-                        );
-                        // glow effect
-                        box-shadow: 0 0 5px
-                            rgba($color: #51ff25, $alpha: $opacity);
-                    }
-                }
+            padding-bottom: 2rem;
+
+            &.fault {
+                color: rgba(255, 255, 255, 0.635);
+            }
+
+            &.not-fault {
+                color: rgba($color: $mainColor, $alpha: $opacity);
+                text-shadow: 0 0 10px
+                    rgba($color: $mainColor, $alpha: calc($opacity * 0.5));
+            }
+        }
+
+        .divider {
+            $opacity: 0.3;
+
+            width: 80%;
+
+            margin-left: auto;
+            margin-right: auto;
+            &.fault {
+                background-color: rgba($color: #fff, $alpha: $opacity);
+                text-shadow: 0 0 10px rgba($color: $mainColor, $alpha: $opacity);
+            }
+
+            &.not-fault {
+                background-color: rgba($color: $mainColor, $alpha: $opacity);
+                box-shadow: 0 0 10px rgba($color: $mainColor, $alpha: $opacity);
             }
         }
     }
@@ -191,7 +229,7 @@
         margin: 0;
 
         background-color: rgba($color: #000, $alpha: 0);
-        border: rgba($color: #fff, $alpha: 0.1) 1px solid;
+        border: rgba($color: #fff, $alpha: 0.2) 1px solid;
         border-radius: 3px;
 
         &:hover {
@@ -212,13 +250,16 @@
 
         color: rgba($color: white, $alpha: 0.5);
         border: rgba($color: #fff, $alpha: 0.1) 1px solid;
-        background-color: transparent;
+        background-color: rgba($color: #fff, $alpha: 0.1);
 
-        border-radius: 5px;
+        border-radius: 2px;
 
         width: $button-size;
         height: $button-size;
-        font-size: 1rem;
+
+        & i {
+            font-size: 1rem;
+        }
 
         // align icon to center
         display: flex;

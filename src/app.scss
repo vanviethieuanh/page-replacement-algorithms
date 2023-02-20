@@ -1,7 +1,8 @@
 /* Write your global styles here, in SCSS syntax. Variables and mixins from the src/variables.scss file are available here without importing */
 
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+
     line-height: 1.5;
     font-weight: 400;
 
@@ -19,6 +20,19 @@
 * {
     box-sizing: border-box;
     transition: all 0.25s ease-in-out;
+
+    // Default all font family to Roboto
+    font-family: inherit;
+
+    .serif {
+        font-family: 'Playfair Display', serif;
+    }
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 a {
@@ -53,27 +67,6 @@ h1 {
     padding: 0;
     text-align: center;
 }
-
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-    
-    &:hover {
-        border-color: #646cff;
-    }
-    &:focus,
-    &:focus-visible {
-        outline: 4px auto -webkit-focus-ring-color;
-    }
-}
-
 
 @media (prefers-color-scheme: light) {
     :root {
