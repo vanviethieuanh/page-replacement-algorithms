@@ -8,23 +8,23 @@
     const Algorithms: {
         name: string
         shorthand?: string
-        scheduler: Function
+        algorithm: any
         disabled?: boolean
     }[] = [
         {
             name: "First In First Out",
             shorthand: "FIFO",
-            scheduler: FirstInFirstOut,
+            algorithm: new FirstInFirstOut(),
         },
         {
             name: "Optimal",
             shorthand: "OPT",
-            scheduler: Optimal,
+            algorithm: new Optimal(),
         },
         {
             name: "Least Recently Used",
             shorthand: "LRU",
-            scheduler: LeastRecentlyUsed,
+            algorithm: new LeastRecentlyUsed(),
         },
     ]
 
@@ -40,9 +40,9 @@
                 <button
                     disabled={algorithm.disabled ?? false}
                     class={selectedIndex === index ? "item selected" : "item"}
-                    on:click={(e) => {
+                    on:click={() => {
                         selectedIndex = index
-                        dispatch("change", Algorithms[selectedIndex].scheduler)
+                        dispatch("change", Algorithms[selectedIndex].algorithm)
                     }}
                 >
                     {#if algorithm.shorthand}

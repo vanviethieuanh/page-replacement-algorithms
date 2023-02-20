@@ -9,10 +9,55 @@ export class LeastRecentlyUsed implements ReplacementAlgorithm {
         fristPage.pagesFrames[0] = pages[0]
         fristPage.value = pages[0]
         fristPage.memoryFrames[0] = pages[0]
+        fristPage.referenceTimes[0] = 0
 
         const pageFrame: Page[] = [fristPage]
         for (let i = 1; i < pages.length; i++) {
-            // Implementing
+            const pageValue = pages[i]
+            const currentFrame = structuredClone(
+                pageFrame[pageFrame.length - 1]
+            )
+
+            // check if frame is full
+            if (currentFrame.pagesFrames.length < framesPerPage) {
+                // check if page is already in frame
+                if (currentFrame.pagesFrames.includes(pageValue)) {
+                    currentFrame.isFalut = false
+                    // set reference time for existing page
+                    const index = currentFrame.memoryFrames.indexOf(pageValue)
+                    currentFrame.referenceTimes[index] = i
+                } else {
+                    currentFrame.isFalut = true
+                    currentFrame.pagesFrames.push(pageValue)
+                    currentFrame.memoryFrames.push(pageValue)
+                    currentFrame.referenceTimes.push(i)
+                }
+            }
+            // frame is full
+            else {
+                // check if page is already in frame
+                if (currentFrame.pagesFrames.includes(pageValue)) {
+                    currentFrame.isFalut = false
+                    // set reference time for existing page
+                    const index = currentFrame.memoryFrames.indexOf(pageValue)
+                    currentFrame.referenceTimes[index] = i
+                } else {
+                    currentFrame.isFalut = true
+                    // find the index of page that have lowest reference time
+                    const minReferenceTime =
+                        currentFrame.referenceTimes.indexOf(
+                            Math.min(...currentFrame.referenceTimes)
+                        )
+
+                    // replace the page have lowest reference time with pageValue
+                    currentFrame.pagesFrames[minReferenceTime] = pageValue
+                    currentFrame.memoryFrames[minReferenceTime] = pageValue
+                    currentFrame.referenceTimes[minReferenceTime] = i
+                }
+            }
+
+            currentFrame.value = pageValue
+            pageFrame.push(currentFrame)
         }
 
         return pageFrame

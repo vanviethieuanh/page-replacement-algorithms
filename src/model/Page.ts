@@ -1,12 +1,7 @@
 export class Page {
-    public isFalut: boolean
-    public pagesFrames: number[]
-    public memoryFrames: number[]
-    public value: number
-
-    constructor() {
-        this.isFalut = false
-        this.pagesFrames = []
-        this.memoryFrames = []
-    }
+    public isFalut: boolean = false
+    public pagesFrames: number[] = []
+    public memoryFrames: number[] = []
+    public referenceTimes: number[] = []
+    public value: number = -1
 }

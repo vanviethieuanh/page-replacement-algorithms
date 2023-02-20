@@ -1,5 +1,6 @@
 <script lang="ts">
     import { FirstInFirstOut } from "@/logic/FirstInFirstOut"
+
     import Algorithms from "./lib/Algorithms.svelte"
     import { IntegersToRomanNumerals } from "@utils/NumberConverter"
 
@@ -19,8 +20,6 @@
     let algo: ReplacementAlgorithm = new FirstInFirstOut()
     $: result = algo.run(pages, frames)
     $: faultCount = result.filter((p) => p.isFalut).length
-
-    var fifo = new FirstInFirstOut()
 
     function copy(value: string) {
         navigator.clipboard.writeText(value)
@@ -58,7 +57,11 @@
         </div>
         <div class="divider" />
         <div class="algorithms-selector">
-            <Algorithms />
+            <Algorithms
+                on:change={({ detail: algorithm }) => {
+                    algo = algorithm
+                }}
+            />
         </div>
         <div class="divider" />
         <!-- Table of result -->

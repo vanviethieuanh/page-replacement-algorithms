@@ -46,7 +46,6 @@ export class FirstInFirstOut implements ReplacementAlgorithm {
 
             currentFrame.value = pageValue
             pageFrame.push(currentFrame)
-            console.log(currentFrame)
         }
 
         return pageFrame
