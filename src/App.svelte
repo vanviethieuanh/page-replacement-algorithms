@@ -1,7 +1,7 @@
 <script lang="ts">
     import { FirstInFirstOut } from "@/logic/Implement/FirstInFirstOut"
 
-    import Algorithms from "./lib/Algorithms.svelte"
+    import AlgorithmsSelector from "./lib/AlgorithmsSelector.svelte"
     import { IntegersToRomanNumerals } from "@utils/NumberConverter"
 
     import type { ReplacementAlgorithm } from "@logic/Interface/ReplacementAlgorithm"
@@ -57,7 +57,7 @@
         </div>
         <div class="divider" />
         <div class="algorithms-selector">
-            <Algorithms
+            <AlgorithmsSelector
                 on:change={({ detail: algorithm }) => {
                     algo = algorithm
                 }}
