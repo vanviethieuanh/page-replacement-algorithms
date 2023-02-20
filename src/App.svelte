@@ -13,8 +13,13 @@
 
     let algo: ReplacementAlgorithm = new FirstInFirstOut()
     $: result = algo.run(pages, frames)
+    $: faultCount = result.filter((p) => p.isFalut).length
 
     var fifo = new FirstInFirstOut()
+
+    function copy(value: string) {
+        navigator.clipboard.writeText(value)
+    }
 </script>
 
 <div
@@ -22,32 +27,44 @@
     style="background-image: url(https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&q=80&w={window.innerWidth}&h={window.innerHeight});"
 >
     <main>
-        <input
-            type="text"
-            placeholder="Type in pages, separated by spaces"
-            id="pages"
-            bind:value={pagesInput}
-        />
-        <input
-            type="text"
-            placeholder="Type in pages, separated by spaces"
-            id="pages"
-            bind:value={framesInput}
-        />
-        <p>
-            Faults:
-            {algo
-                .run(pages, 3)
-                .map((p) => p.isFalut)
-                .filter((p) => p).length}
-        </p>
+        <div class="inputs">
+            <p>Frames each page</p>
+            <p>Pages</p>
+            <div class="fault-column">
+                <p>Faults</p>
+                <button on:click={() => copy(faultCount.toString())}>
+                    <i class="fa-solid fa-copy" />
+                </button>
+            </div>
+            <input
+                type="number"
+                placeholder="Type in frames in each page"
+                id="frames"
+                bind:value={framesInput}
+            />
+            <input
+                type="text"
+                placeholder="Type in pages, separated by spaces"
+                id="pages"
+                bind:value={pagesInput}
+            />
+            <b>{faultCount}</b>
+        </div>
+        <div class="divider" />
         <!-- Table of result -->
         <!-- Each column is an element of result -->
         <table>
             <thead>
                 <tr>
                     {#each result as page}
-                        <th class="header">{page.value}</th>
+                        <th class="header">
+                            {page.value}
+                            <div
+                                class="divider {!page.isFalut
+                                    ? 'not-fault'
+                                    : 'fault'}"
+                            />
+                        </th>
                     {/each}
                 </tr>
             </thead>
@@ -61,21 +78,6 @@
                         {/each}
                     </tr>
                 {/each}
-                <tr>
-                    {#each result as page}
-                        <td>
-                            {#if page.isFalut}
-                                <span class="fault"
-                                    ><i
-                                        class="fa-solid fa-star-of-life"
-                                    /></span
-                                >
-                            {:else}
-                                <span class="fault" />
-                            {/if}
-                        </td>
-                    {/each}
-                </tr>
             </tbody>
         </table>
     </main>
@@ -104,25 +106,81 @@
         background-color: rgba($color: #000, $alpha: 0.05);
         backdrop-filter: blur(30px);
 
-        border-radius: 5px;
+        border-radius: 10px;
         border: rgba($color: #fff, $alpha: 0.1) 1px solid;
 
         // drop shadow
-        box-shadow: 0 0 5px rgba($color: #fff, $alpha: 0.2);
-
-        padding: 1rem;
+        box-shadow: 0 0 10px rgba($color: #fff, $alpha: 0.2);
 
         // stretch items to fill container
         display: flex;
         flex-direction: column;
         align-items: stretch;
         justify-content: center;
+
+        .divider {
+            height: 1px;
+            width: 100%;
+
+            margin: 1rem 0;
+
+            background: rgba($color: #fff, $alpha: 0.1);
+        }
+
+        .inputs {
+            display: grid;
+            grid-template-columns: auto 1fr 150px;
+            grid-template-rows: auto auto;
+
+            padding: 1rem;
+
+            p {
+                opacity: 0.5;
+            }
+
+            .fault-column {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+
+                gap: 0.5rem;
+            }
+
+            input {
+                margin: 0 0.5rem;
+            }
+        }
+
+        table {
+            padding: 2rem 0;
+        }
     }
 
-    .fault {
-        color: rgba($color: #fff, $alpha: 0.5);
-        i {
-            font-size: 10px;
+    table {
+        thead {
+            th {
+                padding: 0 1rem;
+                text-align: center;
+
+                $opacity: 0.5;
+
+                .divider {
+                    &.fault {
+                        background-color: rgba($color: #fff, $alpha: $opacity);
+                    }
+
+                    &.not-fault {
+                        background-color: rgba(
+                            $color: #51ff25,
+                            $alpha: $opacity
+                        );
+                        // glow effect
+                        box-shadow: 0 0 5px
+                            rgba($color: #51ff25, $alpha: $opacity);
+                    }
+                }
+            }
         }
     }
 
@@ -143,6 +201,35 @@
         &:focus {
             border: rgba($color: #fff, $alpha: 0.5) 1px solid;
             outline: none;
+        }
+    }
+
+    button {
+        margin: 0;
+        padding: 0;
+
+        $button-size: 32px;
+
+        color: rgba($color: white, $alpha: 0.5);
+        border: rgba($color: #fff, $alpha: 0.1) 1px solid;
+        background-color: transparent;
+
+        border-radius: 5px;
+
+        width: $button-size;
+        height: $button-size;
+        font-size: 1rem;
+
+        // align icon to center
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+
+        &:hover {
+            border: rgba($color: #fff, $alpha: 0.5) 1px solid;
+            color: rgba($color: white, $alpha: 1);
         }
     }
 </style>
