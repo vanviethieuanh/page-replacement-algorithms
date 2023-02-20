@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { FirstInFirstOut } from "@/logic/FirstInFirstOut"
+    import { FirstInFirstOut } from "@/logic/Implement/FirstInFirstOut"
 
     import Algorithms from "./lib/Algorithms.svelte"
     import { IntegersToRomanNumerals } from "@utils/NumberConverter"
 
-    import type { ReplacementAlgorithm } from "@logic/ReplacementAlgorithm"
+    import type { ReplacementAlgorithm } from "@logic/Interface/ReplacementAlgorithm"
 
     const backgroundId = "1451187580459-43490279c0fa"
 

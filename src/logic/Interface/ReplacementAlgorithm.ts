@@ -1,4 +1,4 @@
-import type { Page } from "../model/Page"
+import type { Page } from "@model/Page"
 
 export interface ReplacementAlgorithm {
     readonly name: string

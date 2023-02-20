@@ -1,5 +1,5 @@
-import { Page } from "../model/Page"
-import type { ReplacementAlgorithm } from "./ReplacementAlgorithm"
+import { Page } from "@/model/Page"
+import type { ReplacementAlgorithm } from "@logic/Interface/ReplacementAlgorithm"
 
 // OPT
 export class Optimal implements ReplacementAlgorithm {

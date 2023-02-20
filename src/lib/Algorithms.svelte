@@ -1,9 +1,9 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte"
 
-    import { FirstInFirstOut } from "@/logic/FirstInFirstOut"
-    import { Optimal } from "@logic/Optimal"
-    import { LeastRecentlyUsed } from "@logic/LeastRecentlyUsed"
+    import { FirstInFirstOut } from "@logic/Implement/FirstInFirstOut"
+    import { Optimal } from "@logic/Implement/Optimal"
+    import { LeastRecentlyUsed } from "@logic/Implement/LeastRecentlyUsed"
 
     const Algorithms: {
         name: string

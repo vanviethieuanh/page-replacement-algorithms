@@ -1,7 +1,7 @@
-import { Page } from "../model/Page"
-import type { ReplacementAlgorithm } from "./ReplacementAlgorithm"
+import { Page } from "@model/Page"
+import type { ReplacementAlgorithm } from "@logic/Interface/ReplacementAlgorithm"
 
-export class FirstInFirstOut implements ReplacementAlgorithm {
+export class LeastRecentlyUsed implements ReplacementAlgorithm {
     run(pages: number[], framesPerPage: number): Page[] {
         // create result 2D array pages x frames
         const fristPage = new Page()
@@ -9,6 +9,7 @@ export class FirstInFirstOut implements ReplacementAlgorithm {
         fristPage.pagesFrames[0] = pages[0]
         fristPage.value = pages[0]
         fristPage.memoryFrames[0] = pages[0]
+        fristPage.referenceTimes[0] = 0
 
         const pageFrame: Page[] = [fristPage]
         for (let i = 1; i < pages.length; i++) {
@@ -22,10 +23,14 @@ export class FirstInFirstOut implements ReplacementAlgorithm {
                 // check if page is already in frame
                 if (currentFrame.pagesFrames.includes(pageValue)) {
                     currentFrame.isFalut = false
+                    // set reference time for existing page
+                    const index = currentFrame.memoryFrames.indexOf(pageValue)
+                    currentFrame.referenceTimes[index] = i
                 } else {
                     currentFrame.isFalut = true
                     currentFrame.pagesFrames.push(pageValue)
                     currentFrame.memoryFrames.push(pageValue)
+                    currentFrame.referenceTimes.push(i)
                 }
             }
             // frame is full
@@ -33,14 +38,21 @@ export class FirstInFirstOut implements ReplacementAlgorithm {
                 // check if page is already in frame
                 if (currentFrame.pagesFrames.includes(pageValue)) {
                     currentFrame.isFalut = false
+                    // set reference time for existing page
+                    const index = currentFrame.memoryFrames.indexOf(pageValue)
+                    currentFrame.referenceTimes[index] = i
                 } else {
                     currentFrame.isFalut = true
-                    const lastPop = currentFrame.pagesFrames.shift()
-                    currentFrame.pagesFrames.push(pageValue)
+                    // find the index of page that have lowest reference time
+                    const minReferenceTime =
+                        currentFrame.referenceTimes.indexOf(
+                            Math.min(...currentFrame.referenceTimes)
+                        )
 
-                    // replace lastPop with pageValue in memoryFrames
-                    const index = currentFrame.memoryFrames.indexOf(lastPop)
-                    currentFrame.memoryFrames[index] = pageValue
+                    // replace the page have lowest reference time with pageValue
+                    currentFrame.pagesFrames[minReferenceTime] = pageValue
+                    currentFrame.memoryFrames[minReferenceTime] = pageValue
+                    currentFrame.referenceTimes[minReferenceTime] = i
                 }
             }
 
@@ -51,7 +63,7 @@ export class FirstInFirstOut implements ReplacementAlgorithm {
         return pageFrame
     }
 
-    name: string = "First In First Out"
+    name: string = "Least Recently Used"
     description: string =
-        "The first page that enters the memory is the first page to be removed from the memory."
+        "The earliest page referenced, the first page to come out."
 }

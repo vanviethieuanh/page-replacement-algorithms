@@ -20,10 +20,10 @@
             "@pages/*": ["./src/pages/*"],
             "@styles/*": ["./src/styles/*"],
             "@utils/*": ["./src/utils/*"],
+            "@model/*": ["./src/model/*"],
             "@store": ["./src/store.js"],
             "@src/*": ["./src/*"],
             "@*": ["./src/*"],
-            "@models/*": ["./src/models/*"]
         },
         "moduleResolution": "node",
         "baseUrl": "./"
