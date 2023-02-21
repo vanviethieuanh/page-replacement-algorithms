@@ -225,7 +225,13 @@
 
         $mainColor: #ffe0b3;
 
+        td {
+            color: white;
+        }
+
         th {
+            color: white;
+
             $opacity: 0.7;
 
             padding-bottom: 2rem;
