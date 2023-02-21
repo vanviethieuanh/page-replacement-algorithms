@@ -24,7 +24,7 @@
         }}
     >
         <i class="fa-solid fa-heart" />
-        <p>Hảo tâm</p>
+        <p>Donate</p>
     </button>
 </div>
 <div class={dialogOpen ? "donate" : "donate close"}>
