@@ -5,6 +5,7 @@
     import { IntegersToRomanNumerals } from "@utils/NumberConverter"
 
     import type { ReplacementAlgorithm } from "@logic/Interface/ReplacementAlgorithm"
+    import Donate from "./lib/Donate.svelte"
 
     const backgroundId = "1451187580459-43490279c0fa"
 
@@ -105,6 +106,7 @@
             </tbody>
         </table>
     </main>
+    <Donate />
     <footer>
         <div class="credit">
             Design and created by Văn Viết Hiếu Anh (Accodius) - Background
@@ -133,6 +135,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 2rem;
     }
 
     main {
