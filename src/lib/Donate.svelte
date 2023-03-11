@@ -29,7 +29,7 @@
 </div>
 <div class={dialogOpen ? "donate" : "donate close"}>
     <div class="donate-dialog">
-        <p id="title">Hảo tâm</p>
+        <p id="title">Donate</p>
         <button
             id="close"
             class="icon-button"
@@ -64,6 +64,18 @@
             on:click={() => copy("03237316401")}
         >
             <i class="fa-solid fa-copy" />
+        </button>
+        <div class="momo method">
+            <div class="numbers">
+                <b>Buy Me a coffee</b>
+            </div>
+            <p>@accodius</p>
+        </div>
+        <button
+            class="icon-button"
+            on:click={() => window.open("https://ko-fi.com/accodius")}
+        >
+            <i class="fa-solid fa-mug-hot" />
         </button>
     </div>
 </div>
@@ -114,7 +126,6 @@
 
         border-radius: 10px;
 
-        background-color: rgba($color: #000, $alpha: 0.2);
         border: rgba($color: #fff, $alpha: 0.2) 1px solid;
 
         display: grid;
